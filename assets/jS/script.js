@@ -9,6 +9,14 @@ var taskFormHandler = function (event) {
   var taskNameInput = document.querySelector("input[name='task-name']").value;
   // get the value of the driopdown to show up below task 
   var taskTypeInput = document.querySelector("select[name='task-type']").value;
+  // check to see if input values are empty strings
+  if (!taskNameInput || !taskTypeInput) {
+    alert("You need to fill out the task form!");
+    return false;
+  }
+  // reset the form
+  formEl.reset();
+  
   // package up data as an object 
   var taskDataObj = {
     name: taskNameInput,
