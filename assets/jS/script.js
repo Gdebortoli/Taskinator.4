@@ -1,3 +1,6 @@
+// Generate Unique ID's to each task
+var taskIdCounter = 0;
+
 // Adding DOM object reference so that when we add a new task it lets us create one
 var formEl = document.querySelector("#task-form");
 var tasksToDoEl = document.querySelector("#tasks-to-do");
@@ -31,6 +34,9 @@ var createTaskEl = function (taskDataObj) {
   var listItemEl = document.createElement("li");
   listItemEl.className = "task-item";
 
+  // add task id as a custom attribute
+  listItemEl.setAttribute("data-task-id", taskIdCounter);
+
   // create a div to hold task info and add to list item
   var taskInfoEl = document.createElement("div");
   // give it a class name 
@@ -41,6 +47,9 @@ var createTaskEl = function (taskDataObj) {
   listItemEl.appendChild(taskInfoEl);
   // style the list item to match and append the list item to add to the list 
   tasksToDoEl.appendChild(listItemEl);
+
+  // increase task counter for next unique id 
+  taskIdCounter++; 
 };
 
 // Event Listener - Changed from buttonEL to listen to entire form and not just button function
