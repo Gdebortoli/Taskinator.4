@@ -1,3 +1,6 @@
+// Page content
+var pageContentEl = document.querySelector("#page-content");
+
 // Generate Unique ID's to each task
 var taskIdCounter = 0;
 
@@ -104,4 +107,23 @@ return actionContainerEl;
 
 // Event Listener - Changed from buttonEL to listen to entire form and not just button function
 formEl.addEventListener("submit", taskFormHandler);
+
+var taskButtonHandler = function(event) {
+  console.log(event.target);
+
+  if (event.target.matches(".delete-btn")) {
+  // get the element's task id
+  var taskId = event.target.getAttribute("data-task-id");
+  deleteTask(taskId);
+  }
+};
+
+// Delete Task Function
+var deleteTask = function(taskId) {
+  // no space between task item and data task means they must be on the same element 
+  var taskSelected = document.querySelector(".task-item[data-task-id= '" + taskId + "']");
+  taskSelected.remove();
+};
+// Page Content Event Listener 
+pageContentEl.addEventListener("click", taskButtonHandler);
 
