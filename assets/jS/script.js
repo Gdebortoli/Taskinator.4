@@ -45,21 +45,6 @@ var taskFormHandler = function (event) {
   }
 };
 
-// Completed Edit Task Function
-var completeEditTask = function (taskName, taskType, taskId) {
-  // find the matching task list item
-  var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
-
-  // set new values
-  taskSelected.querySelector("h3.task-name").textContent = taskName;
-  taskSelected.querySelector("span.task-type").textContent = taskType;
-
-  alert("Task Updated!");
-  // To reset the form - removing ID and changing button text back to normal
-  formEl.removeAttribute("data-task-id");
-  document.querySelector("#save-task").textContent = "Add Task";
-};
-
 var createTaskEl = function (taskDataObj) {
   // create list item
   var listItemEl = document.createElement("li");
@@ -85,6 +70,21 @@ var createTaskEl = function (taskDataObj) {
 
   // increase task counter for next unique id 
   taskIdCounter++;
+};
+
+// Completed Edit Task Function
+var completeEditTask = function (taskName, taskType, taskId) {
+  // find the matching task list item
+  var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+
+  // set new values
+  taskSelected.querySelector("h3.task-name").textContent = taskName;
+  taskSelected.querySelector("span.task-type").textContent = taskType;
+
+  alert("Task Updated!");
+  // To reset the form - removing ID and changing button text back to normal
+  formEl.removeAttribute("data-task-id");
+  document.querySelector("#save-task").textContent = "Add Task";
 };
 
 // Form elements for tasks
@@ -132,9 +132,6 @@ var createTaskActions = function (taskId) {
   // to verify data returns correctly
   return actionContainerEl;
 };
-
-// Event Listener - Changed from buttonEL to listen to entire form and not just button function
-formEl.addEventListener("submit", taskFormHandler);
 
 var taskButtonHandler = function (event) {
   // get target element from event 
@@ -189,15 +186,19 @@ var taskStatusChangeHandler = function (event) {
   // Moved them to the correct column
   if (statusValue === "to do") {
     tasksToDoEl.appendChild(taskSelected);
-  } 
+  }
   else if (statusValue === "in-progress") {
     tasksInProgressEl.appendChild(taskSelected);
-  } 
+  }
   else if (statusValue === "completed") {
     tasksCompletedEl.appendChild(taskSelected);
   }
 };
-// Page Content Event Listener 
+
+// Event Listener for creating a new task - Changed from buttonEL to listen to entire form and not just button function
+formEl.addEventListener("submit", taskFormHandler);
+// Event Listeners for edit/delete buttons 
 pageContentEl.addEventListener("click", taskButtonHandler);
+// Event listener for changing the status 
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 
